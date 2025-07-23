@@ -4,7 +4,6 @@ services:
   honey_bun:
     build:
       context: .
-      dockerfile: Dockerfile
     container_name: django_ecommerce
     command: ./initializer.sh
     volumes:
@@ -18,7 +17,7 @@ services:
 
   db:
     image: postgres:17
-    container_name: postgres_db
+    container_name: postgresdbs
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
