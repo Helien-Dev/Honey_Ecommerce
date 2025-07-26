@@ -1,5 +1,5 @@
 # Honey Ecommerce
-# Readme Provisional
+Readme Provisional
 
 Proyecto de ejemplo de ecommerce desarrollado con Django 5.2.4 y PostgreSQL.
 
