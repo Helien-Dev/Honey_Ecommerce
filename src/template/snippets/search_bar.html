@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+  <form method="GET"  action="{% url 'search'  %}">
+      <div>
+        <input type="text" placeholder="Search for whatever" name="searched">
+      </div>
+      <button type="submit">Search whatever</button>
+  </form>
+
+  
+  {% for producto in productos %}
+    <p>{{producto.nombre}}</p>
+  {% endfor %}
+    
+
+  <br>
+  
+  {% if searched %}
+    {% for product in searched %}
+      <p>Results: {{product}}</p>
+    {% endfor %}
+      
+  {% endif %}
+    
+
+{% endblock content %}

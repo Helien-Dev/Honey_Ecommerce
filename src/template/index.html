@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+{% load django_browser_reload %}
 <body>
-    <h1>Prueba</h1>
+    <h1>Prueba de Search bar</h1>
+    {% block content %}
+    
+    {% endblock content %}
 </body>
+{% django_browser_reload_script %}
 </html>

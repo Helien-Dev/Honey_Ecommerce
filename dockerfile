@@ -1,27 +1,28 @@
 FROM python:3.12-slim
+RUN useradd -ms /bin/sh -u 1001 code
 
-# Mini vm dependencies
 RUN apt-get update && apt-get install -y \
-    # for postgres
     libpq-dev \
-    # for Pillow
     libjpeg-dev \
-    # for CairoSVG
     libcairo2 \
-    # other
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code/src
-
-COPY requirements.txt /code/
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r /code/requirements.txt
-
-COPY . /code/
-
-# clean apt to reduce image size
 RUN apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+
+COPY requirements.txt  /scripts/initializer.sh /scripts/wait-for-it.sh /code/
+    
+RUN pip install --upgrade pip \
+    && pip install gunicorn \ 
+    && pip install --no-cache-dir -r /code/requirements.txt
+
+USER code
+WORKDIR /code/src
+COPY --chown=code:code requirements.txt /scripts/initializer.sh /scripts/wait-for-it.sh  /code/
+
+RUN pip install --upgrade pip \
+    && pip install gunicorn django-browser-reload \
+    && pip install --no-cache-dir -r /code/requirements.txt
